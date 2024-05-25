@@ -1,0 +1,556 @@
+\documentclass{article}                     % 文档
+\usepackage{ctex}                           % 写了才能显示中文
+\usepackage{microtype}                      % （英文）排版优化
+% \usepackage[a4paper]{geometry}            % 页面设置，包括页面大小与页边距
+\usepackage{geometry}                       % 库函数，调用\geometry{}的必要库
+\geometry{left=2.2cm,right=1.8cm,top=2.0cm,bottom=2.5cm}% 调整页边距
+\geometry{papersize={18.00cm,23.00cm}}      % 调整页面大小
+% \usepackage{fancyhdr}                     % 页眉页脚
+% \usepackage{pdfpages}                     % 使用pdf作为封面
+
+
+\usepackage{amsthm}                         % 定理, 命题, 证明, 解, 例子相关的宏包
+\usepackage{amsmath}                        % AMS 数学公式扩展，罗马数字
+\usepackage{amssymb}                        % 在 amsfonts 基础上将 AMS 扩展符号定义成命令，希腊字母
+\usepackage{amsfonts}                       % AMS 扩展符号的基础字体支持，大写空心粗体字母
+% \usepackage{mathtools}                    % 数学公式扩展宏包，提供了公式编号定制和更多的符号, 矩阵等
+% \usepackage{nicematrix}                   % 提供的 NiceArray 等环境
+% \usepackage{siunitx}                      % 国际单位制，例如科学记数法，国际单位
+% \usepackage{newtxmath}                    % 将数学字体设置为罗马形式的衬线体
+\usepackage{bm}                             % 提供将数学符号加粗的命令 \bm
+\numberwithin{equation}{section}            % 公式按章节编号
+
+\usepackage{enumitem}                       % 列表设置，\setlist 进行全局设置. 例如默认的列表之间间距太大，使用 \setlist{nosep} 取消额外间距. 
+\usepackage{graphicx}                       % 支持插图
+% \usepackage{tabularx}                     % 定宽表格，可申明宽度，也可自动排版
+% \usepackage{threeparttable}               % 表格
+% \usepackage{multirow}                     % \multirow[竖直位置]{合并行数}{列宽}{内容} 命令可以用于合并表格的行. 其中，" 竖直位置可以设置为 c 中间对齐（默认）, t 顶部对齐或 b 底部对齐；" 列宽" 可以设置为 * 以自动进行调整. 
+% \usepackage{booktabs}                     % 标准三线表定义，分别是 \toprule, \midrule 和 \bottomrule. 特别地，使用 \cmidrule 命令可以只绘制部分列的中间横线
+% \usepackage{longtable}                    % 表格特别长时，处理跨页表格
+% \usepackage{subcaption}                   % 图片并排，提供的 \subcaptionbox 命令
+% \usepackage{tikz}                         % 绘制数学图形
+\usepackage{caption}                        % 对图表名称的格式进行设置，\captionsetup{labelsep=space} 将图表编号与名字之间的间隔设置为了空格（其他的类似还有分号, 句点等习惯）
+\graphicspath{{./figures/}}                 % 图片存储位置
+\numberwithin{figure}{section}              % 图片按章节编号
+\numberwithin{table}{section}               % 表格按章节编号
+\captionsetup{labelsep=space}
+
+
+\makeatletter                               % 罗马字符\rmnum{数字}大写罗马数字 ： \Rmnum{数字}
+\newcommand{\rmnum}[1]{\romannumeral #1}    % 罗马字符
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother                                % 罗马字符
+
+\newcommand\keywords[1]{\textbf{Keywords}: #1}% 关键字环境
+
+\newtheorem{theorem}{\indent 定理}[section] % 中文定理环境
+\newtheorem{lemma}[theorem]{\indent 引理}   % \indent 为了段前空两格
+\newtheorem{proposition}[theorem]{\indent 命题}
+\newtheorem{corollary}[theorem]{\indent 推论}
+\newtheorem{definition}{\indent 定义}[section]
+\newtheorem{example}{\indent 例}[section]
+\newtheorem{remark}{\indent 注}[section]
+\newenvironment{solution}{\begin{proof}[\indent\bf 解]}{\end{proof}}
+\renewcommand{\proofname}{\indent\bf 证明}
+
+\usepackage[backend=bibtex]{biblatex}       % 参考文献编译文件，没有引用参考文献时调用该宏包
+% \usepackage{gbt7714}                      % China standard style
+% \bibliographystyle{gbt7714-numerical}     % numerical / author-year
+% \setlength{\bibsep}{0.5ex}                % vertical spacing between references
+% \usepackage{notoccite}                    % remove citations in TOC and ensure correct numbering
+
+% \usepackage{listings}                     % 提供了排版关键字高亮的代码环境 lstlisting 以及对版式的自定义. 类似宏包有minted
+\usepackage[hidelinks]{hyperref}            % 目录超链接
+% \usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}% 超链接，一般放到导言区最后一行
+% \usepackage{cleveref}                     % 用于交叉引用的时候
+
+
+
+
+%主体区
+\begin{document}
+\title{数据库设计与开发}%长度最好不要超过20个字
+\author{SHU}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%自制封面
+%\begin{titlepage}	
+% 封面信息
+%\includepdf[pages={1}]{cover.pdf} %曲线救国的思路, 外界自建封面, 然后调用
+%\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%默认封面
+\maketitle%本页为标题页
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----目录
+%\tableofcontents
+%\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}%摘要
+    \begin{enumerate}
+        \item 本次考试采用闭卷考试形式, 不允许携带任何参考资料. 需要手写SQL语句. \\
+        \item 考题类型包含: 单项选择题( 30题, 共30分) ; 简述题( 6题, 共20分) ; 综合题( 11题, 共30分) ; 编程题( 3题, 共20分) 四种类型. \\
+        \item 可在2023年11月10日10:00~14:00, F121室进行考前答疑. \\
+        \item 平时作业习题在公共邮箱: sjjgsyc@126.com 密码: sjjg789456123
+    \end{enumerate}
+\end{abstract}
+\section{一, 单项选择题}
+\begin{enumerate}
+    
+\item 数据库, 数据库管理系统, 数据库系统的定义, 三者之间关系; \\
+1)数据( Data) ——描述事物的符号记录. \\
+2)数据库( DataBase,DB) : 是为满足某部门各种用户的应用要求, 在计算机系统中按照一定的数据模型组织, 存储和使用的相互关联的数据集合. \\
+3)数据库管理系统( DataBase Management System, DBMS ) : 位于用户与操作系统之间的一层数据管理软件, 用于对数据库进行各种操作. \\
+4)数据库系统(  DataBase System, DBS ) : 包括 DBMS, DB, DBA( 数据库管理员) 及计算机系统, 应用软件和众多操作者的综合系统. \\
+
+
+\item 逻辑模型转换为数据模型时的映射关系; \\
+1)逻辑模型. 实体: 现实世界中客观存在并可相互区分的事物; 属性: 实体所具有的特征. 一个实体一般都有多个属性来描述; 关系: 实体之间的联系, 分为一对一关系, 一对多关系, 多对多关系\\
+2)数据模型. 表, 属性, 关系\\
+3)两者映射关系: 实体: 表; 属性: 表列; 关系: 主外键. \\
+
+
+
+\item 数据库的分类; \\
+1)数据库的发展过程为: 层次数据库, 网状数据库, 关系型数据库\\
+2)数据库的分类为: 关系型数据库( 例如: Oracle, IBM DB2, Sybase, Microsoft SQL Server等) 与非关系型数据库( 例如: dBase, FoxBase等) \\
+
+
+
+
+\item 常用数据库对象; \\
+触发器( Trigger) , 表( Table) , 索引( Index) , 约束( Constraint) , 视图( View) , 序列( Sequence) , 同义词( Synonym) , 簇( Cluster) , 过程( Procedure) , 函数( Function) , 包( Package) , 触发器( Trigger) , 对象类型( Object Type)  , 数据库链( Database Link) \\
+
+
+
+\item SQL语句和SQL*Plus命令的区别; \\
+1)SQL 语句可以访问数据库, 而 SQL*Plus 命令不能访问数据库. \\
+2)SQL 语句不能缩写, 而 SQL*Plus 命令可以缩写. \\
+3)SQL 语句执行后将会暂时存放到 SQL 缓冲区, 而 SQL*Plus 命令不能存放到 SQL 缓冲区. \\
+
+ 
+
+
+\item 替代变量有几种定义形式, 这几种替代变量的区别; \\
+1)定义替代变量( 临时保存数据) : $\&$命令( 临时变量, 每次遇到都需要提示输入一个值) , $\&\&$命令( 持久变量, 仅会在第一次遇到时提示输入一个值) , $DEF[INE]$命令( CHAR型) ( 使用由其定义的变量需要加上$\&$) , $ACC[EPT]$ 命令( 可以给提示) \\
+2)清除替代变量: $UNDEF[INE]$ 命令\\
+
+
+
+\item 常用的环境变量的含义, 默认值; \\
+1)ARRAY[SIZE]——用于设置一次从数据库提取的行数, 有效值为1至5000, 默认值: 15\\
+2)COLSEP——用于设置列之间的分隔符, 默认值: " "( 空格) \\
+3)FEED[BACK]——用于指定反馈 SELECT 语句显示行数的最少行数.  , 默认值: 用于6或更多行的 FEEDBACK ON\\
+4)HEA[DING]——用于设置是否显示列标题, 默认值: ON\\
+5)LIN[ESIZE]——用于设置行宽度, 默认值: 80\\
+6)LONG——用于设置 LONG 和 LOB 类型列的显示长度, 默认值: 80\\
+7)PAGES[IZE]——用于设置每页所显示的行数, 默认值: 14\\
+8)SERVEROUT[PUT]——用于控制服务器输出, 默认值: OFF\\
+9)TERMOUT——用于控制 SQL 脚本的输出, 默认值: ON\\
+10)TI[ME]——用于设置在 SQL 提示符前是否显示系统时间, 默认值: OFF\\
+11)TIMI[NG]——用于设置是否要显示 SQL 语句或PL/SQL块执行的时间, 默认值: OFF\\
+12)VER[IFY]——用于设置是否要显示替换前, 后文本值, 默认值: OFF\\
+13)SHOW RECYC[LEBIN ]——用于显示在数据库回收站中的当前用户对象, 默认值: 未找到\\
+14)WRA[P] ——用于控制是否截断数据项的显示, 默认值: 未找到\\
+15)NUMF[ORMAT]——用来设置显示数值的默认格式, 默认值: 未找到\\
+16)PAUSE——用来设置SQL*Plus输出结果是否滚动显示, 默认值: OFF\\
+
+\item 常用分组函数的功能; \\
+1)MAX 函数——返回组中数字表达式的最大值\\
+2)MIN 函数——返回组中数字表达式的最小值\\
+3)AVG 函数——返回组中数字表达式的平均值\\
+4)SUM 函数——返回组中数字表达式的总和\\
+5)COUNT 函数——返回组中查询结果中的记录数\\
+6) VARIANCE——返回组中数字表达式的方差\\
+7)STDDEV——返回组中数字表达式的标准偏差\\
+
+
+\item 使用数据分组应注意的问题; \\
+1)分组函数只能出现在选择列表, HAVING 子句和 ORDER BY 子句中. \\
+2)如果在 SELECT 语句中同时包含有 GROUP BY , HAVING 以及 ORDER BY 子句, 那么必须将 ORDER BY 子句放在\\
+3)如果选择列表包含有列, 表达式和分组函数, 那么这些列和 表达式必须出现在 GROUP BY 子句中, 否则会出错. \\
+
+
+
+\item 使用连接查询时应注意的问题; \\
+1)当使用连接查询时, 必须在 FROM 子句后指定两个或两个以上的表\\
+2)当使用连接查询时, 应该在列名前加表名作为前缀\\
+3)连接查询性能很低, 因此连接查询一般用于数据量较小的情况. \\
+4)使用( $+$) 操作符实现外连接只适合在Oracle数据库中使用, 如果用户使用了其他数据库( 如SQL Server或MySQL) , 则只能利用SQL:1999语法的定义来实现. \\
+
+
+
+\item 连接查询的分类, 内连接, 外连接的实现; \\
+1)连接查询的分类: 交叉连接, 内连接, 外连接\\
+2)内连接, 外连接的实现: \\
+• 内连接: 相等连接, 不等连接, 自连接, 自然连接, 使用USING子句; \\
+• 外连接: 左外连接, 右外连接, 完全外连接, ($+$)( Oracle特有) \\
+
+
+
+\item 集合操作符的使用; \\
+1)UNION——用于取得两个结果集的并集, 并自动去掉结果集中的重复行\\
+2)UNION ALL——用于取得两个结果集的并集\\
+3)INTERSECT——用于取得两个结果集的交集\\
+4)MINUS——用于取得两个结果集的差集\\
+
+
+
+\item Oracle常用系统函数的使用( 查询语句中经常使用的) ; \\
+字符函数, 数字函数, 日期和时间函数, 转换函数, 分组函数, 通用函数\\
+
+
+
+\item 使用INSERT语句应注意的问题; \\
+1)如果为数字列插入数据, 则可以直接提供数字值; 如果为字符列或日期列插入数据, 则必须用单引号引住. \\
+2)当插入数据时, 数据必须要满足约束规, 并必须为主键列和 NOT NULL 列提供数据. \\
+3)当插入数据时, 数据必须要与列的个数, 数据类型和顺序保持一致. \\
+
+
+
+\item 使用UPDATE语句应注意的问题; \\
+1)如果要更新数字列, 则可以直接提供数字值; 如果要更新字符列或日期列, 则数据必须用单引号引住. \\
+2)当更新数据时, 数据必须要满足约束规. \\
+3)当更新数据时, 数据必须要与列的数据类型匹配\\
+
+
+
+\item 使用DELETE语句应注意的问题, DELETE语句与TRUNCATE TABLE 语句的共同点, 不同点; \\
+1)删除主表数据时, 必须确保从表不存在相关记录, 否则删除操作失败, 并显示错误信息\\
+2)DELETE语句: 删除数据, 但可用ROLLBACK回退还原数据\\
+3)TRUNCATE TABLE语句: 删除数据( 截断表) , 不可以用ROLLBACK回退还原数据, 是彻底的删除数据\\
+
+
+\item 事务的保存点的定义, 作用; \\
+1)保存点定义: 事务回退点\\
+2)保存点的作用: 用于取消部分事务. \\
+
+
+\item 行级锁定, 表级锁定; \\
+1)行级锁定( 记录锁定) ——对当前事务中的一行数据以独占的方式进行锁定, 在此事务结束之前, 其他事务要一直等待该事务结束. \\
+2)表级锁定——对整张数据表进行数据锁定, 只允许当前事务访问数据表, 其他事务无法访问. \\
+
+
+
+\item 约束的定义, 分类, 定义约束时什么约束必须在表级定义, 什么约束必须在列级定义; \\
+1)约束——用于确保数据库数据满足特定的商业逻辑或者企业规则\\
+2)约束的分类\\
+• NOT NULL——用于确保列不能为 NULL\\
+• UNIQUE——用于惟一地标识列的数据\\
+• PRIMARY KEY——用于惟一地标识表行的数据. \\
+• FOREIGN KEY——用于定义主从表之间的关系. \\
+• CHECK——用于强制表行数据必须要满足的条件( CHECK约束允许列值为NULL) \\
+3)列级定义约束——是指在定义列的同时定义约束. \\
+• NOT NULL 约束( 只能列级定义) \\
+4)表级定义约束——是指在定义了所有列之后定义的约束. \\
+• 复合约束( 只能表级定义) \\
+5)既可以在列级, 也可以在表级定义约束有: PRIMARY KEY约束, FOREIGN KEY约束, CHECK约束,  UNIQUE约束\\
+
+
+\item 视图的定义; \\
+视图——是基于其他表或者其他视图的逻辑表\\
+视图基表——是指其 SELECT 语句所对应的表\\
+
+
+
+\item 索引的分类, 什么情况下可以引用索引提高查询效率; \\
+1)索引——是用于加速数据存取的数据库对象\\
+2)索引的分类: \\
+• 单列索引——是指基于单个列建立的索引. \\
+• 复合索引——是指基于两列或多列建立的索引. \\
+• 惟一索引——是指索引列值不能重复的索引. \\
+• 非惟一索引——是指索引列值可以重复的索引. \\
+3)引用索引提高查询效率指导方针: \\
+•  WHERE 子句经常引用的表列上, 可建立索引. \\
+• 需要提高多表连接的性能, 可在连接列上建立索引. \\
+• 需要加快数据排序的速度, 可在需要排序的列上建立索引. \\
+• 表较大时可建立索引\\
+
+
+
+\item 建立序列语句中各个选项的含义, 序列中伪列的含义及使用时应注意的问题; \\
+1)序列——是一种用于生成惟一数字的数据库对象\\
+2)建立序列语句中各个选项的含义\\
+建立序列语句格式: 
+\begin{align*}
+&CREATE\ SEQUENCE\ sequence\_name\\
+&[INCREMENT\ BY\ n]\\
+&[START WITH\ n]\\
+&[{MAXVALUE\ n\ |\ NOMAXVALUE}]\\
+&[{MINVALUE\ n\ |\ NOMINVALUE}]\\
+&[{CYCLE\ |\ NOCYCLE}]\\
+&[{CACHE\ n\ |\ NOCACHE}];
+\end{align*}
+$START WITH n$: 第一个序列号, \\
+$INCREMENT BY n$: 序列增量, \\
+$MAXVALUE n$: 最大序列号, \\
+$MINVALUE n$: 最小序列号, \\
+$CYCLE$: 序列在达到最大值或最小值后.将继续从头开始生成值, 默认是不循环的\\
+$CACHE n$: 内存中预分配的序列号个数, \\
+3)序列中伪列的含义: 序列伪列是数据库按照一定规则生成的自增数字序列. 因其自增的特性, 通常被用作主键和唯一键. 伪列的行为与表中的列相同, 但并未存储具体数值. 因此, 伪列只具备读属性, 您不可以对伪列进行插入, 更新, 删除的等行为, 常见的伪列有ROWID 和 ROWNUM\\
+• ROWID——用于惟一地标识表行, 它间接地给出了表行的物理位置. \\
+• ROWNUM——用于返回标识行数据顺序的数字值. \\
+4)伪列使用时应注意的问题: \\
+• 通过使用 CACHE 选项建立序列, 可以设置在内存中预分配的序列号个数. \\
+• 当执行 ROLLBACK 语句取消事务操作后, 会导致出现序列缺口. \\
+
+\end{enumerate}
+
+
+
+
+\section{二, 简述题}
+\begin{enumerate}
+\item 子查询的定义, 分类, 作用; \\
+1)子查询——是指嵌入在其他 SQL 语句中的 SELECT 语句\\
+2)子查询分为: 单行子查询, 多行子查询, 多列子查询\\
+3)子查询的作用\\
+• 通过在 INSERT 或 CREATE TABLE 语句中使用子查询 可以将源表数据追加到目标表; \\
+• 通过在 CREATE VIEW 或 CREATE MATERIALIZED VIEW 中使用子查询, 可以定义视图或实体化视图所对应的SELECT 语句; \\
+• 通过在 UPDATE 语句中使用子查询可以修改一列或多列的数据; \\
+• 通过在 WHERE , HAVING, START WITH 子句中使用子查询, 可以提供条件值. \\
+4)子查询在一条查询语句中出现的位置: \\
+• SELECT子句: 此时子查询返回结果都是单行单列. \\
+• WHERE子句: 此时子查询返回结果一般都是单行单列, 单行多列, 多行单列, 多行多列. \\
+• HAVING子句: 此时子查询返回结果都是单行单列. \\
+• FROM子句: 此时子查询返回结果都是多行多列. \\
+5)使用子查询时, 应注意的规则: \\
+• 子查询必须用圆括号括起来; \\
+• 子查询中不能包含ORDER BY子句; \\
+• 子查询允许嵌套多层, 但不能超过255层. \\
+
+
+
+\item 数据类型CHAR, VARCHAR2的区别; \\
+1)数据类型CHAR\\
+• CHAR(N) 或 CHAR(N BYTE)——用于定义固定长度的字符串( 以字节为单位) , 最大长度为2000 字节. \\
+• CHAR(N CHAR)——用于定义固定长度的字符串 ( 以字符个数为单位) . \\
+2)数据类型VARCHAR2\\
+• VARCHAR2(N) 或 VARCHAR2(N BYTE)——用于定义变长字符串( 以字节为单位) , 最大长度为 4000 字节, Oracle12c开始其最大支持32767字节. \\
+• VARCHAR2(N CHAR)——用于定义变长字符串( 以字符个数为单位) \\
+3)数据类型CHAR, VARCHAR2的区别:数据类型CHAR定义的是固定长度的字符串, 数据类型VARCHAR2定义的是变长字符串\\
+
+
+
+\item 举例说明数据的完整性和数据的安全性的区别; \\
+1)数据的完整性——为了防止数据库中存在不符合语义的数据( 包含三种完整性——实体完整性, 参照完整性, 用户自定义完整性) . \\
+2)数据的安全性——用于保护数据库防止恶意破坏和非法存取. \\
+3)数据的完整性和安全性是两个不同概念, 数据库的完整性是指数据的正确性和相容性. 数据库的安全性是指保护数据库, 以防止不合法的使用造成的数据泄密, 更玫或破坏. 其相同点是两者都是对数据库中的数据进行控制, 各自所实现的功能目标不同\\
+
+
+
+
+\item 视图的分类, 作用; \\
+1)视图分类: \\
+• 简单视图——是指基于单个表所建立的不包含任何函数, 表达式以及分组数据的视图. \\
+• 复杂视图——是指包含函数, 表达式或者分组数据的视图. \\
+• 连接视图——是指基于多个表所建立的视图. \\
+• 只读视图——是指只允许执行 SELECT 操作, 而禁止任何 DML 操作的视图. \\
+2)视图的作用\\
+• 能够简化用户的操作; \\
+• 使用户能以多种角度看待同一数据; \\
+• 对重构数据库提供了一定程度的逻辑独立性; \\
+• 能够对机密数据提供安全保护; \\
+• 适当地利用视图可以更清晰地表达查询. \\
+
+
+
+
+\item 使用索引的指导方针; \\
+1)索引正确的表和列( 建立索引) \\
+• 索引应该建立在 WHERE 子句经常引用的表列上. \\
+• 为了提高多表连接的性能, 应该在连接列上建立索引. \\
+• 为了加快数据排序的速度, 应该在需要排序的列上建立索引. \\
+• 不要在小表上建立索引. \\
+2)限制表的索引个数\\
+3)删除不需要的索引( 删除索引) \\
+• 删除在小表上建立的索引. \\
+• 删除查询语句不会引用的索引. \\
+
+
+
+
+
+
+\item 同义词的定义, 分类, 作用; \\
+1)同义词——是一种用于提供对象别名的数据库对象. \\
+2)同义词的分类\\
+• 公共同义词——是指所有用户都可以直接引用的同义词. \\
+• 私有同义词——是指只能由其方案用户直接引用的同义词\\
+3)同义词的作用\\
+• 简化对象访问. \\
+• 提高对象访问的安全性. \\
+
+
+
+
+
+\item 事务的定义, 作用, 只读事务, 顺序事务的定义, 作用; \\
+1)事务——完成一个特定任务的工作单元\\
+2)事务的作用——用于确保数据库数据的一致性\\
+3)只读事务——是指只允许执行查询操作, 而不允许执行任何 DML 操作的事务. \\
+4)只读事务的作用——用于确保用户取得特定时间点的数据. \\
+5)顺序事务的定义: 是指允许执行查询与DML 操作的事务. \\
+6)顺序事务的作用: 用于确保用户取得特定时间点的数据, 并对数据进行更改\\
+
+
+
+
+
+
+\item 举例说明为什么在Oracle 的事务处理中要引入锁定机制? \\
+为了保证数据的一致性和有效性Oracle采用锁定机制. \\
+锁定处理机制——解决事务并发性所带来的问题. \\
+
+
+
+
+
+
+\item 举例说明ROWID的用途. \\
+1)ROWID的用途: 利用ROWID删除表包含的重复行. \\
+例8-1  显示 DEPT 表的部门名及其行位置.  \\
+SELECT dname,rowid FROM dept;\\
+CREATE TABLE TP(C1 INT,C10 INT,C20 VARCHAR2(3));\\
+DESC TP\\
+SELECT * FROM TP;\\
+SELECT * FROM TP GROUP BY C1,C10,C20 HAVING COUNT(*)>1;\\
+SELECT ROWID,C1,C10,C20 FROM TP;*******************************\\
+SELECT MIN(ROWID) FROM TP GROUP BY C1,C10,C20;*************\\
+DELETE FROM TP WHERE ROWID NOT IN(SELECT MIN(ROWID) FROM TP GROUP BY C1,C10,C20);****************\\
+SELECT * FROM TP;\\
+2)ROWNUM——用于返回标识行数据顺序的数字值. \\
+例8-2 显示 DEPT 表的部门顺序值及其部门名. \\
+SELECT rownum,dname FROM dept;*********************************\\
+
+
+
+
+\item 举例说明 Oracle 中 DROP TABLE, TRUNCATE TABLE, DELETE的区别. \\
+1)TRUNCATE 和 DROP 是 DDL 语句, 而 DELETE是 DML 语句. \\
+2)DROP TABLE( 删除表) : 删除表中所有的数据; 删除与该表相关的所有索引和触发器; 如果有视图或PL/SQL过程依赖于该表, 这些视图或PL/SQL过程将被置于不可用状态; 从数据字典中删除该表的定义; 回收为该表分配的存储空间. 但可以从回收站恢复表格\\
+3)TRUNCATE TABLE( 截断表) : 删除表的所有数据保留表的结构, 并释放表所占用的全部资源( 例如索引, 约束等) , 数据难以恢复\\
+4)DELETE: 删除表数据, 可以加 where 条件实现部分数据删除, 删除的数据可以撤回和恢复\\
+
+\item 为了维护数据库的完整性, Oracle 必须提供哪些支持? \\
+• 提供定义完整性约束条件机制. \\
+• 提供完整性检查方法. \\
+• 违约处理: 如拒绝执行该操作, 或者级联( CASCADE) 执行其他操作. \\
+
+
+
+
+
+\item 在删除一个表时, 通常Oracle会执行哪些操作? \\
+• 删除表中所有的数据; \\
+• 删除与该表相关的所有索引和触发器; \\
+• 如果有视图或PL/SQL过程依赖于该表, 这些视图或PL/SQL过程将被置于不可用状态; \\
+• 从数据字典中删除该表的定义; \\
+• 回收为该表分配的存储空间. \\
+
+
+
+
+
+\item 为什么要在数据库项目的开发中引用视图?\\
+• 能够简化用户的操作; \\
+• 使用户能以多种角度看待同一数据; \\
+• 对重构数据库提供了一定程度的逻辑独立性; \\
+• 能够对机密数据提供安全保护; \\
+• 适当地利用视图可以更清晰地表达查询\\
+
+\end{enumerate}
+
+
+
+
+\section{三, 单项选择题, 综合题}
+1, 简单查询; \\
+2, 条件查询, 排序查询; \\
+3, 分组查询, 连接查询; \\
+4, 子查询; \\
+5, 集合操作符的使用; \\
+注: 掌握PPT上例题及课后习题\\
+
+\begin{example}
+    查询EMP表显示第2个字符为" A" 的所有雇员名及其工资. \\
+    \begin{equation*}
+        SELECT ename,sal FROM emp WHERE ename LIKE '\_A\%';   
+    \end{equation*}
+\end{example}
+\begin{example}
+    查询出在1981年雇佣的全部雇员的编号, 姓名, 雇用日期( 按照年-月-日显示) , 工作, 领导姓名, 雇员月工资, 雇员年工资( 工资+补助) , 雇员工资等级, 部门编号, 部门名称, 部门位置, 并且要求这些雇员的月工资在$1500~3500$元之间, 将最后的结果按照年工资降序排列, 如果年工资相等, 则按照雇佣日期进行升序排列. \\
+    \begin{align*}
+    &SELECT e.empno \mbox{编号},e.ename \mbox{姓名},to\_char(e.hiredate,'YY-MM-DD')\mbox{雇用日期},\\
+    &e.job \mbox{工作},m.ename \mbox{领导},s.sal \mbox{月工资},s.salyear \mbox{年工资},\\
+    &s.grade \mbox{工资等级} ,d.deptno \mbox{部门编号},d.dname \mbox{部门名称},d.loc \mbox{部门位置} \\
+    &FROM dept d \\
+    &JOIN emp e ON d.deptno=e.deptno \\
+    &JOIN (SELECT empno,ename,mgr FROM emp) m ON e.mgr=m.empno \\
+    &JOIN (SELECT empno,sal,(sal+nvl(comm,0))\*12 salyear,DECODE(grade,1,'E\mbox{等工资}',\\
+    &2,'D\mbox{等工资}',3,'C\mbox{等工资}',4,'B\mbox{等工资}',5,'A\mbox{等工资}')grade \\
+    &FROM emp e,salgrade s WHERE sal BETWEEN losal AND hisal)s ON e.empno=s.empno \\
+    &WHERE s.sal BETWEEN 1500 AND 3500 \\
+    &ORDER BY s.salyear DESC,hiredate;
+    \end{align*}
+\end{example}
+
+
+
+
+
+
+\section{四, 编程题}
+\begin{enumerate}
+\item 按考题要求编写脚本文件. \\
+\begin{example}
+    建立SQL脚本文件 $disp\_emp.sql$.  要求: \\
+    ( 1) 设置页标题为" 雇员报表" ; \\
+    ( 2) 每个部门只显示一次部门号; \\
+    ( 3) 设置行宽为60个字符; \\
+    ( 4) 设置页的总计显示行数为40行. \\
+    ( 5) 设置显示雇员工资时要带有本地货币符号; \\
+    ( 6) 显示EMP表所有雇员的所在部门号, 雇员号, 雇员名, 雇员工资, 并以部门号进行升序排序. \\
+    ( 7) 清除所有之前的设置. \\
+    \begin{align*}
+    &TTITLE \ ' \mbox{雇员报表}' \\
+    &BREAK \ ON \ deptno\\
+    &SET \ LINESIZE \ 60\\
+    &SET \  PAGESIZE \  40\\
+    &COL \  sal \  FORMAT \  L99999.99\\
+    &SELECT \  deptno,empno,ename,sal\  FROM\  emp\  ORDER\  BY\  deptno;\\
+    &TTITLE \  OFF\\
+    &CLEAR \  BREAK\\
+    &SET \  LINESIZE 80\\
+    &SET \  PAGESIZE 14\\
+    &COL \  sal CLEAR
+    \end{align*}
+\end{example}
+
+\item 按考题要求编写PL/SQL 块. \\
+\begin{example}
+    编写$PL/SQL$块, 使用替代变量输入雇员号, 并使用$DBMS\_OUTPUT$包显示雇员姓名及其工资. \\
+    \begin{align*}
+    &DECLARE\\
+    & \ \ \ \ v\_ename \ emp.ename\%TYPE;\\
+    & \ \ \ \ v\_sal \ emp.sal\%TYPE;\\
+    &BEGIN\\
+    & \ \ \ \ SELECT\  ename,sal\  INTO \  v\_ename,v\_sal \  FROM \ emp \ WHERE \ empno=\&no;\\
+    & \ \ \ \ dbms\_output.put\_line('\mbox{姓名}: '||v\_ename||',\mbox{工资}'||v\_sal);\\
+    &EXCEPTION\\
+    &\ \ \ \ WHEN \ NO\_DATA\_FOUND \ THEN\\
+    & \ \ \ \ \ \ \ \  dbms\_output.put\_line('\mbox{该雇员不存在}');\\
+    &END;
+    \end{align*}
+\end{example}
+
+\end{enumerate}
+
+\begin{remark}
+    掌握PPT上例题及课后习题. 
+\end{remark}
+
+\end{document}
